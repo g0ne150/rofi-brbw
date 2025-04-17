@@ -208,7 +208,7 @@ autotype() {
     # ydotool key --key-delay 0 --key-up Shift_L Shift_R Alt_L Alt_R
     ydotool type --key-delay $TypeKeyDelay -- "$1"
     [ -n "$2" ] && {
-        ydotool key --key-delay 0 Tab
+        ydotool key --key-delay 0 15:1 15:0
         ydotool type --key-delay $TypeKeyDelay -- "$2"
     }
     ${Enter:-false} && ydotool key --key-delay 0 Return
