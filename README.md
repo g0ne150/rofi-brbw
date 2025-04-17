@@ -1,6 +1,6 @@
 # rofi-brbw
 
-Yet another Rofi frontend for Bitwarden ([rbw](https://github.com/doy/rbw)).
+Yet another Rofi frontend for Bitwarden ([rbw](https://github.com/doy/rbw)) works under wayland.
 
 ![rofi-brbw](https://user-images.githubusercontent.com/32964025/213987598-95d60010-2c00-4c6a-96f7-85784b266e0f.png)
 
@@ -18,9 +18,9 @@ Yet another Rofi frontend for Bitwarden ([rbw](https://github.com/doy/rbw)).
 - [`rbw`](https://github.com/doy/rbw)
 - `bash`, `coreutils`
 - `sed`, `awk`
-- `xclip`
+- `wl-clipboard`
 - `xdg-utils`
-- `xdotool`
+- `ydotool`
 - `qrencode` *(for QR code generation)*
 - `Nerd Font` or `Font Awesome` *(for icons)*
 

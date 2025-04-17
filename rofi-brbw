@@ -6,7 +6,7 @@
 # @license: GPL-3.0
 #------------------------------------------------------------------------------
 # Dependencies:
-#   rofi, rbw, xdotool, xclip, sed, awk, coreutils, xdg-utils, nerd/awesome font
+#   rofi, rbw, ydotool, wl-clipboard, sed, awk, coreutils, xdg-utils, nerd/awesome font
 #------------------------------------------------------------------------------
 
 # Key bindings
@@ -103,8 +103,9 @@ menu_help() {
 
 clip() {
 	case $Clipboard in
-		both) xclip -r; xclip -o | xclip -selection clipboard ;;
-		p*|c*) xclip -r -selection "$Clipboard" ;;
+		both) wl-copy; wl-paste | wl-copy --primary ;;
+		p*) wl-copy --primary ;;
+		c*) wl-copy ;;
 	esac
 }
 
@@ -202,21 +203,16 @@ qr_code() {
 }
 
 autotype() {
-	[ -z "$1" ] || [ "$1" = $EmptyUserPlaceholder ] && exit
+    [ -z "$1" ] || [ "$1" = $EmptyUserPlaceholder ] && exit
 
-	XRepeatStatus=$(xset q | awk '/auto repeat:/ {print $3; exit}')
-	xset r off
-
-	xdotool keyup Shift_L Shift_R Alt_L Alt_R
-	xdotool type --delay $TypeKeyDelay --clearmodifiers -- "$1"
-	[ -n "$2" ] && {
-		xdotool key Tab
-		xdotool type --delay $TypeKeyDelay --clearmodifiers -- "$2"
-	}
-	${Enter:-false} && xdotool key Return
-	${CopyOTP:-false} && OTP=$(rbw code "$SelID" 2>/dev/null) && clip <<< "$OTP"
-
-	xset r "$XRepeatStatus"
+    # ydotool key --key-delay 0 --key-up Shift_L Shift_R Alt_L Alt_R
+    ydotool type --key-delay $TypeKeyDelay -- "$1"
+    [ -n "$2" ] && {
+        ydotool key --key-delay 0 Tab
+        ydotool type --key-delay $TypeKeyDelay -- "$2"
+    }
+    ${Enter:-false} && ydotool key --key-delay 0 Return
+    ${CopyOTP:-false} && OTP=$(rbw code "$SelID" 2>/dev/null) && clip <<< "$OTP"
 }
 
 cache() {
